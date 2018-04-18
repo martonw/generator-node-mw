@@ -38,6 +38,7 @@ module.exports = class extends Generator {
       this.destinationPath('config/default.js'),
       {
         logging: this.options.logging,
+        adapter: this.options.adapter,
         express: false, // TODO: add later
       }
     );

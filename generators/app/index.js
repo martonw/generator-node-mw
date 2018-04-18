@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const path = require('path');
+var mkdirp = require('mkdirp');
 
 var Generator = require('yeoman-generator');
 
@@ -49,16 +50,6 @@ module.exports = class extends Generator {
 
   initializing() {
 
-    if (this.options.config) {
-
-      // TODO: we just bypass the options object here, which may not be a good idea..
-      this.composeWith(require.resolve('../config'), this.options);
-    }
-
-    if (this.options.logging) {
-
-      this.composeWith(require.resolve('../logging'), this.options);
-    }
 
     if (this.options.cli) {
 
@@ -69,7 +60,7 @@ module.exports = class extends Generator {
         return;
       }
 
-      this.composeWith(require.resolve('../cli'), this.options);
+      // this.composeWith(require.resolve('../cli'), this.options);
     }
 
   }
@@ -88,10 +79,17 @@ module.exports = class extends Generator {
         name    : 'express',
         message : 'Do you need Express?',
         default : false
+      },
+      {
+        type    : 'confirm',
+        name    : 'adapter',
+        message : 'Do you need Adapter support for cli?',
+        default : false
       }
     ]).then((answers) => {
 
       this.options.author = answers.author;
+      this.options.adapter = answers.adapter;
 
       if (this.options.license) {
 
@@ -112,6 +110,23 @@ module.exports = class extends Generator {
 
         this.composeWith(require.resolve('../express'), this.options);
       }
+
+      if (answers.adapter) {
+
+        var deps = ['cli', 'lodash', 'logging'];
+        var missing = deps.filter(dep => !this.options[dep]);
+        if (missing.length > 0) {
+          this.env.error(`the --adapter option requires the following dependecies: ${ missing.join(', ') }`);
+          return;
+        }
+
+        this.composeWith(require.resolve('../adapter'), this.options);
+      }
+
+      var imports = ['config', 'logging', 'cli'];
+      imports.filter(i => this.options[i]).forEach(generator => {
+        this.composeWith(require.resolve('../' + generator), this.options);
+      })
     });
   }
 
@@ -156,6 +171,8 @@ module.exports = class extends Generator {
       this.templatePath('gitignore.txt'),
       this.destinationPath('.gitignore')
     );
+
+    mkdirp.sync('./data');
   }
 
   install() {

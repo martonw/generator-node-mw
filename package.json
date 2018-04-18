@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "generator-license": "^5.4.0",
+    "mkdirp": "^0.5.1",
     "yeoman-generator": "^2.0.4"
   }
 }

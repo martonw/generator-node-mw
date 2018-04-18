@@ -1,3 +1,5 @@
+var mkdirp = require('mkdirp');
+
 var Generator = require('yeoman-generator');
 
 module.exports = class extends Generator {
@@ -31,23 +33,26 @@ module.exports = class extends Generator {
   writing() {
 
     // logging js files
-    this.fs.copyTpl(
-      this.templatePath('index.js'),
-      this.destinationPath('index.js'),
-      {
-        config: this.options.config,
-        logging: this.options.logging,
-        express: this.options.express,
-        adapter: this.options.adapter,
+    // this.fs.copyTpl(
+    //   this.templatePath('index.js'),
+    //   this.destinationPath('index.js'),
+    //   {
+    //     config: this.options.config,
+    //     logging: this.options.logging,
+    //     express: this.options.express,
+    //     adapter: this.options.adapter,
+    //
+    //   }
+    // );
 
-      }
-    );
+    // create adapters dir
+    mkdirp.sync('./lib/adapters');
   }
 
   install() {
 
     const _this = this;
-    this.npmInstall(['commander']);
+    // this.npmInstall(['commander']);
 
 
 
