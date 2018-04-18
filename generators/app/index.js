@@ -40,6 +40,11 @@ module.exports = class extends Generator {
       desc: 'generate license info',
       default: true
     });
+
+    this.option('test', {
+      desc: 'generate test environment',
+      default: true
+    });
   }
 
   initializing() {
@@ -160,6 +165,10 @@ module.exports = class extends Generator {
 
     // install default libs
     var libs = _this.defaultLibs.filter(lib => _this.options[lib]);
+    if (_this.options.test) {
+      libs.push('mocha');
+      libs.push('should');
+    }
     this.npmInstall(libs);
 
   }
