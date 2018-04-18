@@ -1,0 +1,21 @@
+{
+  "name": "generator-node-mw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "Marton Waszlavik",
+  "license": "ISC",
+  "files": [
+    "generators"
+  ],
+  "dependencies": {
+    "generator-license": "^5.4.0",
+    "yeoman-generator": "^2.0.4"
+  }
+}
