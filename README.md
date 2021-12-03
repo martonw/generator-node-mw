@@ -3,7 +3,7 @@
 ## Installation
 First of all, you will need `yeoman`. If you do not have it already:
 ```
-npm install -g yeoman
+npm install -g yo
 ```
 Then, install the generator like this:
 ```
