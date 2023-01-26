@@ -1,6 +1,7 @@
 {
   "name": "generator-node-mw",
   "version": "1.0.0",
+  "deprecated": "due to vulnerable dependencies in yeoman, the project is deprecated",
   "description": "",
   "main": "index.js",
   "scripts": {
